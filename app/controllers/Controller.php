@@ -31,7 +31,7 @@ class Controller
 	* Error to render
 	*/
 	protected $errorData = array();
-
+        protected $isIndex = false;
 	/*
 	* Routes that don't need authentication
 	*/
@@ -87,9 +87,12 @@ class Controller
 	*/
 	public function index()
 	{	
-		$this->setError(200, $this->f3->get('message_index'));
+//		$this->setError(200, $this->f3->get('message_index'));
+                $this->f3->set('view', 'dashboard.htm');
+                $template=new \Template();
+                echo $template->render('layout.htm');
+                $this->isIndex = true;
 	}
-
 
 	/******************************************************\
 	*
@@ -130,7 +133,9 @@ class Controller
 		// If there is an error
 		if(isset($this->errorData['code'])){
 			\app\helpers\API::error($this->errorData['code'], $this->errorData['message']);
-		}else {
+		} else if($this->isIndex){
+                    
+                } else {
 			\app\helpers\API::success($this->data);
 		}
 	}

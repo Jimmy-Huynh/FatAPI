@@ -21,7 +21,9 @@ $f3->config('app/config/db.ini');
 */
 $f3->set('ONERROR', function($f3){
 	// $error = $f3->get('ERROR');
-	\app\helpers\API::error(404, 'Something wrong happened...');
+//	\app\helpers\API::error(404, 'Something wrong happened...');
+    echo Template::instance()->render('error.htm');
+                
 });
 
 
