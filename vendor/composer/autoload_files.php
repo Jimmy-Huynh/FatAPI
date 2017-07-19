@@ -6,5 +6,5 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    $vendorDir . '/bcosca/fatfree/lib/base.php',
+    '45e8c92354af155465588409ef796dbc' => $vendorDir . '/bcosca/fatfree/lib/base.php',
 );

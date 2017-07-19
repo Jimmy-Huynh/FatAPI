@@ -10,13 +10,7 @@
 	terms of the GNU General Public License as published by the Free Software
 	Foundation, either version 3 of the License, or later.
 
-	Fat-Free Framework is distributed in the hope that it will be useful,
-	but WITHOUT ANY WARRANTY; without even the implied warranty of
-	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-	General Public License for more details.
-
-	You should have received a copy of the GNU General Public License along
-	with Fat-Free Framework.  If not, see <http://www.gnu.org/licenses/>.
+	Please see the LICENSE file for more information.
 
 */
 
@@ -42,11 +36,11 @@ class Bcrypt extends Prefab {
 	**/
 	function hash($pw,$salt=NULL,$cost=self::COST) {
 		if ($cost<4 || $cost>31)
-			user_error(self::E_CostArg,E_USER_ERROR);
+			user_error(self::E_CostArg);
 		$len=22;
 		if ($salt) {
 			if (!preg_match('/^[[:alnum:]\.\/]{'.$len.',}$/',$salt))
-				user_error(self::E_SaltArg,E_USER_ERROR);
+				user_error(self::E_SaltArg);
 		}
 		else {
 			$raw=16;

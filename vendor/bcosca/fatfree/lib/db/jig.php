@@ -10,13 +10,7 @@
 	terms of the GNU General Public License as published by the Free Software
 	Foundation, either version 3 of the License, or later.
 
-	Fat-Free Framework is distributed in the hope that it will be useful,
-	but WITHOUT ANY WARRANTY; without even the implied warranty of
-	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-	General Public License for more details.
-
-	You should have received a copy of the GNU General Public License along
-	with Fat-Free Framework.  If not, see <http://www.gnu.org/licenses/>.
+	Please see the LICENSE file for more information.
 
 */
 
@@ -48,13 +42,12 @@ class Jig {
 	*	@return array
 	*	@param $file string
 	**/
-	function &read($file) {
-		if (!$this->dir || !is_file($dst=$this->dir.$file)) {
-			if (!isset($this->data[$file]))
-				$this->data[$file]=array();
-			return $this->data[$file];
-		}
+	function read($file) {
+		if (!$this->dir)
+			return isset($this->data[$file])?$this->data[$file]:array();
 		$fw=\Base::instance();
+		if (!is_file($dst=$this->dir.$file))
+			return array();
 		$raw=$fw->read($dst);
 		switch ($this->format) {
 			case self::FORMAT_JSON:
@@ -64,8 +57,7 @@ class Jig {
 				$data=$fw->unserialize($raw);
 				break;
 		}
-		$this->data[$file] = $data;
-		return $this->data[$file];
+		return $data;
 	}
 
 	/**

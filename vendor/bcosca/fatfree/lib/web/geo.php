@@ -10,13 +10,7 @@
 	terms of the GNU General Public License as published by the Free Software
 	Foundation, either version 3 of the License, or later.
 
-	Fat-Free Framework is distributed in the hope that it will be useful,
-	but WITHOUT ANY WARRANTY; without even the implied warranty of
-	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-	General Public License for more details.
-
-	You should have received a copy of the GNU General Public License along
-	with Fat-Free Framework.  If not, see <http://www.gnu.org/licenses/>.
+	Please see the LICENSE file for more information.
 
 */
 
@@ -93,15 +87,15 @@ class Geo extends \Prefab {
 		$web=\Web::instance();
 		$query=array(
 			'lat'=>$latitude,
-			'lon'=>$longitude
+			'lng'=>$longitude,
+			'username'=>$fw->hash($fw->get('IP'))
 		);
-		$req=$web->request(
-			'http://api.openweathermap.org/data/2.5/weather?'.
-				http_build_query($query));
 		return ($req=$web->request(
-			'http://api.openweathermap.org/data/2.5/weather?'.
-				http_build_query($query)))?
-			json_decode($req['body'],TRUE):
+			'http://ws.geonames.org/findNearByWeatherJSON?'.
+				http_build_query($query))) &&
+			($data=json_decode($req['body'],TRUE)) &&
+			isset($data['weatherObservation'])?
+			$data['weatherObservation']:
 			FALSE;
 	}
 

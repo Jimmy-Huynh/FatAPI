@@ -10,13 +10,7 @@
 	terms of the GNU General Public License as published by the Free Software
 	Foundation, either version 3 of the License, or later.
 
-	Fat-Free Framework is distributed in the hope that it will be useful,
-	but WITHOUT ANY WARRANTY; without even the implied warranty of
-	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-	General Public License for more details.
-
-	You should have received a copy of the GNU General Public License along
-	with Fat-Free Framework.  If not, see <http://www.gnu.org/licenses/>.
+	Please see the LICENSE file for more information.
 
 */
 
@@ -25,7 +19,7 @@ class Audit extends Prefab {
 
 	//@{ User agents
 	const
-		UA_Mobile='android|blackberry|phone|ipod|palm|windows\s+ce',
+		UA_Mobile='android|blackberry|iphone|ipod|palm|windows\s+ce',
 		UA_Desktop='bsd|linux|os\s+[x9]|solaris|windows',
 		UA_Bot='bot|crawl|slurp|spider';
 	//@}
@@ -104,34 +98,28 @@ class Audit extends Prefab {
 	/**
 	*	Return TRUE if user agent is a desktop browser
 	*	@return bool
-	*	@param $agent string
 	**/
-	function isdesktop($agent=NULL) {
-		if (!isset($agent))
-			$agent=Base::instance()->get('AGENT');
+	function isdesktop() {
+		$agent=Base::instance()->get('AGENT');
 		return (bool)preg_match('/('.self::UA_Desktop.')/i',$agent) &&
-			!$this->ismobile($agent);
+			!$this->ismobile();
 	}
 
 	/**
 	*	Return TRUE if user agent is a mobile device
 	*	@return bool
-	*	@param $agent string
 	**/
-	function ismobile($agent=NULL) {
-		if (!isset($agent))
-			$agent=Base::instance()->get('AGENT');
+	function ismobile() {
+		$agent=Base::instance()->get('AGENT');
 		return (bool)preg_match('/('.self::UA_Mobile.')/i',$agent);
 	}
 
 	/**
 	*	Return TRUE if user agent is a Web bot
 	*	@return bool
-	*	@param $agent string
 	**/
-	function isbot($agent=NULL) {
-		if (!isset($agent))
-			$agent=Base::instance()->get('AGENT');
+	function isbot() {
+		$agent=Base::instance()->get('AGENT');
 		return (bool)preg_match('/('.self::UA_Bot.')/i',$agent);
 	}
 

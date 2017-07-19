@@ -10,13 +10,7 @@
 	terms of the GNU General Public License as published by the Free Software
 	Foundation, either version 3 of the License, or later.
 
-	Fat-Free Framework is distributed in the hope that it will be useful,
-	but WITHOUT ANY WARRANTY; without even the implied warranty of
-	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-	General Public License for more details.
-
-	You should have received a copy of the GNU General Public License along
-	with Fat-Free Framework.  If not, see <http://www.gnu.org/licenses/>.
+	Please see the LICENSE file for more information.
 
 */
 
@@ -70,7 +64,7 @@ class Mapper extends \DB\Cursor {
 	function &get($key) {
 		if ($this->exists($key))
 			return $this->document[$key];
-		user_error(sprintf(self::E_Field,$key),E_USER_ERROR);
+		user_error(sprintf(self::E_Field,$key));
 	}
 
 	/**
@@ -84,7 +78,7 @@ class Mapper extends \DB\Cursor {
 
 	/**
 	*	Convert array to mapper object
-	*	@return \DB\Mongo\Mapper
+	*	@return object
 	*	@param $row array
 	**/
 	protected function factory($row) {
@@ -111,7 +105,7 @@ class Mapper extends \DB\Cursor {
 
 	/**
 	*	Build query and execute
-	*	@return \DB\Mongo\Mapper[]
+	*	@return array
 	*	@param $fields string
 	*	@param $filter array
 	*	@param $options array
@@ -177,7 +171,7 @@ class Mapper extends \DB\Cursor {
 
 	/**
 	*	Return records that match criteria
-	*	@return \DB\Mongo\Mapper[]
+	*	@return array
 	*	@param $filter array
 	*	@param $options array
 	*	@param $ttl int
@@ -206,7 +200,7 @@ class Mapper extends \DB\Cursor {
 		if (!($cached=$cache->exists($hash=$fw->hash($fw->stringify(
 			array($filter))).'.mongo',$result)) || !$ttl ||
 			$cached[0]+$ttl<microtime(TRUE)) {
-			$result=$this->collection->count($filter?:array());
+			$result=$this->collection->count($filter);
 			if ($fw->get('CACHE') && $ttl)
 				// Save to cache backend
 				$cache->set($hash,$result,$ttl);
@@ -234,10 +228,9 @@ class Mapper extends \DB\Cursor {
 	function insert() {
 		if (isset($this->document['_id']))
 			return $this->update();
-		if (isset($this->trigger['beforeinsert']) &&
+		if (isset($this->trigger['beforeinsert']))
 			\Base::instance()->call($this->trigger['beforeinsert'],
-				array($this,array('_id'=>$this->document['_id'])))===FALSE)
-			return $this->document;
+				array($this,array('_id'=>$this->document['_id'])));
 		$this->collection->insert($this->document);
 		$pkey=array('_id'=>$this->document['_id']);
 		if (isset($this->trigger['afterinsert']))
@@ -253,10 +246,9 @@ class Mapper extends \DB\Cursor {
 	**/
 	function update() {
 		$pkey=array('_id'=>$this->document['_id']);
-		if (isset($this->trigger['beforeupdate']) &&
+		if (isset($this->trigger['beforeupdate']))
 			\Base::instance()->call($this->trigger['beforeupdate'],
-				array($this,$pkey))===FALSE)
-			return $this->document;
+				array($this,$pkey));
 		$this->collection->update(
 			$pkey,$this->document,array('upsert'=>TRUE));
 		if (isset($this->trigger['afterupdate']))
@@ -274,13 +266,13 @@ class Mapper extends \DB\Cursor {
 		if ($filter)
 			return $this->collection->remove($filter);
 		$pkey=array('_id'=>$this->document['_id']);
-		if (isset($this->trigger['beforeerase']) &&
+		if (isset($this->trigger['beforeerase']))
 			\Base::instance()->call($this->trigger['beforeerase'],
-				array($this,$pkey))===FALSE)
-			return FALSE;
+				array($this,$pkey));
 		$result=$this->collection->
 			remove(array('_id'=>$this->document['_id']));
 		parent::erase();
+		$this->skip(0);
 		if (isset($this->trigger['aftererase']))
 			\Base::instance()->call($this->trigger['aftererase'],
 				array($this,$pkey));
@@ -299,12 +291,11 @@ class Mapper extends \DB\Cursor {
 	/**
 	*	Hydrate mapper object using hive array variable
 	*	@return NULL
-	*	@param $var array|string
+	*	@param $key string
 	*	@param $func callback
 	**/
-	function copyfrom($var,$func=NULL) {
-		if (is_string($var))
-			$var=\Base::instance()->get($var);
+	function copyfrom($key,$func=NULL) {
+		$var=\Base::instance()->get($key);
 		if ($func)
 			$var=call_user_func($func,$var);
 		foreach ($var as $key=>$val)

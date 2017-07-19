@@ -10,16 +10,9 @@
 	terms of the GNU General Public License as published by the Free Software
 	Foundation, either version 3 of the License, or later.
 
-	Fat-Free Framework is distributed in the hope that it will be useful,
-	but WITHOUT ANY WARRANTY; without even the implied warranty of
-	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-	General Public License for more details.
-
-	You should have received a copy of the GNU General Public License along
-	with Fat-Free Framework.  If not, see <http://www.gnu.org/licenses/>.
+	Please see the LICENSE file for more information.
 
 */
-
 
 //! Authorization/authentication plug-in
 class Auth {
@@ -129,7 +122,7 @@ class Auth {
 			@ldap_close($dc)) {
 			return $info[0]['uid'][0]==$id;
 		}
-		user_error(self::E_LDAP,E_USER_ERROR);
+		user_error(self::E_LDAP);
 	}
 
 	/**
@@ -176,7 +169,7 @@ class Auth {
 			fclose($socket);
 			return (bool)preg_match('/^235 /',$reply);
 		}
-		user_error(self::E_SMTP,E_USER_ERROR);
+		user_error(self::E_SMTP);
 	}
 
 	/**

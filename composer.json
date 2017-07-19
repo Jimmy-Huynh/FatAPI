@@ -1,12 +1,14 @@
 {
-    "name": "takacsmark/fatfreetutorial1",
+    "name": "arthurmialon/PHP08",
+    "description": "Une desc",
+    "require": {
+        "bcosca/fatfree": "~3.4",
+        "firebase/php-jwt": "dev-master"
+    },
     "authors": [
         {
-            "name": "Mark Takacs",
-            "email": "takacs.mark@gmail.com"
+            "name": "Arthur mialon",
+            "email": "arthurmialon@gmail.com"
         }
-    ],
-    "require": {
-    	"bcosca/fatfree": "3.5.0"
-    }
+    ]
 }

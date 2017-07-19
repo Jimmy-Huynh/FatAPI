@@ -10,13 +10,7 @@
 	terms of the GNU General Public License as published by the Free Software
 	Foundation, either version 3 of the License, or later.
 
-	Fat-Free Framework is distributed in the hope that it will be useful,
-	but WITHOUT ANY WARRANTY; without even the implied warranty of
-	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-	General Public License for more details.
-
-	You should have received a copy of the GNU General Public License along
-	with Fat-Free Framework.  If not, see <http://www.gnu.org/licenses/>.
+	Please see the LICENSE file for more information.
 
 */
 
@@ -143,9 +137,8 @@ class Session extends Mapper {
 	*	@param $db object
 	*	@param $table string
 	*	@param $force bool
-	*	@param $onsuspect callback
 	**/
-	function __construct(\DB\SQL $db,$table='sessions',$force=TRUE,$onsuspect=NULL) {
+	function __construct(\DB\SQL $db,$table='sessions',$force=TRUE) {
 		if ($force) {
 			$eol="\n";
 			$tab="\t";
@@ -185,12 +178,8 @@ class Session extends Mapper {
 			($agent=$this->agent()) &&
 			(!isset($headers['User-Agent']) ||
 				$agent!=$headers['User-Agent'])) {
-			if (isset($onsuspect))
-				$fw->call($onsuspect,array($this));
-			else {
-				session_destroy();
-				$fw->error(403);
-			}
+			session_destroy();
+			$fw->error(403);
 		}
 		$csrf=$fw->hash($fw->get('ROOT').$fw->get('BASE')).'.'.
 			$fw->hash(mt_rand());

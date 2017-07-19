@@ -1,23 +1,23 @@
 [
     {
         "name": "bcosca/fatfree",
-        "version": "3.5.0",
-        "version_normalized": "3.5.0.0",
+        "version": "3.4.0",
+        "version_normalized": "3.4.0.0",
         "source": {
             "type": "git",
             "url": "https://github.com/bcosca/fatfree.git",
-            "reference": "9cc485be8db3b2b9d7c1f098db24afd05e5259da"
+            "reference": "079e43ba76b960269a5e6410f582485eb9e6c851"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/bcosca/fatfree/zipball/9cc485be8db3b2b9d7c1f098db24afd05e5259da",
-            "reference": "9cc485be8db3b2b9d7c1f098db24afd05e5259da",
+            "url": "https://api.github.com/repos/bcosca/fatfree/zipball/079e43ba76b960269a5e6410f582485eb9e6c851",
+            "reference": "079e43ba76b960269a5e6410f582485eb9e6c851",
             "shasum": ""
         },
         "require": {
             "php": ">=5.3.6"
         },
-        "time": "2015-06-02 21:34:13",
+        "time": "2015-01-01T12:12:48+00:00",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
@@ -31,5 +31,53 @@
         ],
         "description": "A powerful yet easy-to-use PHP micro-framework designed to help you build dynamic and robust Web applications - fast!",
         "homepage": "http://fatfreeframework.com/"
+    },
+    {
+        "name": "firebase/php-jwt",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/firebase/php-jwt.git",
+            "reference": "9984a4d3a32ae7673d6971ea00bae9d0a1abba0e"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/firebase/php-jwt/zipball/9984a4d3a32ae7673d6971ea00bae9d0a1abba0e",
+            "reference": "9984a4d3a32ae7673d6971ea00bae9d0a1abba0e",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.3.0"
+        },
+        "require-dev": {
+            "phpunit/phpunit": " 4.8.35"
+        },
+        "time": "2017-06-27T22:17:23+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Firebase\\JWT\\": "src"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "BSD-3-Clause"
+        ],
+        "authors": [
+            {
+                "name": "Neuman Vong",
+                "email": "neuman+pear@twilio.com",
+                "role": "Developer"
+            },
+            {
+                "name": "Anant Narayanan",
+                "email": "anant@php.net",
+                "role": "Developer"
+            }
+        ],
+        "description": "A simple library to encode and decode JSON Web Tokens (JWT) in PHP. Should conform to the current spec.",
+        "homepage": "https://github.com/firebase/php-jwt"
     }
 ]

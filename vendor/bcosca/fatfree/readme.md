@@ -36,9 +36,8 @@ Unlike other frameworks, F3 aims to be usable - not usual.
 
 The philosophy behind the framework and its approach to software architecture is towards minimalism in structural components, avoiding application complexity and striking a balance between code elegance, application performance and programmer productivity.
 
-[![Paypal](ui/images/paypal.png)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=MJSQL8N5LPDAY)
-
-![Bitcoin](ui/images/bitcoin.png)
+[![Paypal](ui/images/donate.png)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=MJSQL8N5LPDAY)
+[![Bitcoin](ui/images/bitcoin.png)](https://coinbase.com/checkouts/7986a0da214006256d470f2f8e1a15cf)
 
 ## Table of Contents
 
@@ -55,7 +54,7 @@ The philosophy behind the framework and its approach to software architecture is
 
 [![Twitter](ui/images/twitter.png)](https://twitter.com/phpfatfree)
 
-### Version 3.5 Is Finally Released!
+### Version 3.4 Is Finally Released!
 
 The latest official release welcomes the new year with a bang and marks the final milestone in this version of the Fat-Free Framework. Packed with exciting new features and outstanding documentation that consumed significant time and effort to develop and refine, version 3.4 is now available for download. This edition is packed with a bunch of new usability and security features.
 
@@ -85,7 +84,7 @@ Unzip the contents of the distribution package anywhere in your hard drive. By d
 
 **Important:** If your application uses APC, Memcached, WinCache, XCache, or a filesystem cache, clear all cache entries first before overwriting an older version of the framework with a new one.
 
-Make sure you're running the right version of PHP. F3 does not support versions earlier than PHP 5.3. You'll be getting syntax errors (false positives) all over the place because new language constructs and closures/anonymous functions are not supported by outdated PHP versions. To find out, open your console (`bash` shell on GNU/Linux, or `cmd.exe` on Windows):-
+Make sure you're running the right version of PHP. F3 does not support versions earlier than PHP 5.3. You'll be getting syntax errors (false positives) all over the place because new language constructs and closures/anonymous functions are not supported by outdated PHP versions. To find out, open your console (`bash` shell on Linux, or `cmd.exe` on Windows):-
 
 ```
 /path/to/php -v
@@ -222,10 +221,6 @@ $f3->route('GET /brew/*',
 An important point to consider: You will get Fat-Free (and yourself) confused if you have both `GET /brew/@count` and `GET /brew/*` together in the same application. Use one or the other. Another thing: Fat-Free sees `GET /brew` as separate and distinct from the route `GET /brew/@count`. Each can have different route handlers.
 
 
-### Dynamic Web Sites
-
-Wait a second - in all the previous examples, we never really created any directory in our hard drive to store these routes. The short answer: we don't have to. All F3 routes are virtual. They don't mirror our hard disk folder structure. If you have programs or static files (images, CSS, etc.) that do not use the framework - as long as the paths to these files do not conflict with any route defined in your application - your Web server software will deliver them to the user's browser, provided the server is configured properly.
-
 ### Named Routes
 
 When you define a route, you can assign it a name. Use the route name in your code and templates instead of a typed url. Then if you need to change your urls to please the marketing overlords, you only need to make the change where the route was defined. The route names must follow php variable naming rules (no dots, dashes nor hyphens).
@@ -236,7 +231,7 @@ Let's name a route:-
 $f3->route('GET @beer_list: /beer', 'Beer->list');
 ```
 
-The name is inserted after the route VERB (`GET` in this example) preceded by an `@` symbol, and separated from the URL portion by a colon `:` symbol. You can insert a space after the colon if that makes it easier to read your code (as shown here).
+The name is inserted after the route VERB (`GET` in this example) preceeded by an `@` symbol, and separated from the URL portion by a colon `:` symbol. You can insert a space after the colon if that makes it easier to read your code (as shown here).
 
 To access the named route in a template, get the value of the named route as the key of the `ALIASES` hive array:-
 
@@ -265,6 +260,10 @@ $f3->reroute('@beer_list(@country=Germany,@village=Rhine)');
 ```
 
 Remember to `urlencode()` your arguments if you have characters that do not comply with RFC 1738 guidelines for well-formed URLs.
+
+### Dynamic Web Sites
+
+Wait a second - in all the previous examples, we never really created any directory in our hard drive to store these routes. The short answer: we don't have to. All F3 routes are virtual. They don't mirror our hard disk folder structure. If you have programs or static files (images, CSS, etc.) that do not use the framework - as long as the paths to these files do not conflict with any route defined in your application - your Web server software will deliver them to the user's browser, provided the server is configured properly.
 
 ### PHP 5.4's Built-In Web Server
 
@@ -1615,7 +1614,7 @@ In the above scenario, F3 will retrieve records that match the criteria `'visits
 
 ```
 [subset] array of mapper objects that match the criteria
-[count] number of subsets available
+[count] number of of subsets available
 [pos] actual subset position
 ```
 
@@ -2025,7 +2024,7 @@ Want to make your site run even faster? Fat-Free works best with either Alternat
 
 ### Bandwidth Throttling
 
-A fast application that processes all HTTP requests and responds to them at the shortest time possible is not always a good idea - specially if your bandwidth is limited or traffic on your Web site is particularly heavy. Serving pages ASAP also makes your application vulnerable to Denial-of-Service (DOS) attacks. F3 has a bandwidth throttling feature that allows you to control how fast your Web pages are served. You can specify how much time it should take to process a request:-
+A fast application that processes all HTTP requests and responds to them at the shortest time possible is not always a good idea - specially if your bandwidth is limited or traffic on your Web site is particularly heavy. Serving pages ASAP also makes your application vulnerable to Denial-of-Service (DOS) attacks. F3 has a bandwidth throttling feature that allows you to control how fast your Web pages are served. Your can specifies how much time it should take to process a request:-
 
 ``` php
 $f3->route('/throttledpage','MyApp->handler',0,128);
@@ -2454,7 +2453,6 @@ The Fat-Free Framework is community-driven software. It can't be what it is toda
 * Store Machine
 * PHP Experts, Inc.
 * Meins und Vogel GmbH
-* Online Prepaid Services
 * Christian Knuth
 * Sascha Ohms
 * Lars Brandi Jensen
@@ -2546,17 +2544,11 @@ The Fat-Free Framework is community-driven software. It can't be what it is toda
 * Andrew Brookes
 * Steve Cove
 * Steven Witten
-* Silvan Seeholzer
 
 Special thanks to the selfless others who expressed their desire to remain anonymous, yet share their time, contribute code, send donations, promote the framework to a wider audience, as well as provide encouragement and regular financial assistance. Their generosity is F3's prime motivation.
 
-[![Paypal](ui/images/paypal.png)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=MJSQL8N5LPDAY)
-
-![Bitcoin](ui/images/bitcoin.png)
-
-### Legal notice
-
-By making a donation to this project you signify that you acknowledged, understood, accepted, and agreed to the terms and conditions contained in this notice. Your donation to the Fat-Free Framework project is voluntary and is not a fee for any services, goods, or advantages, and making a donation to the project does not entitle you to any services, goods, or advantages. We have the right to use the money you donate to the Fat-Free Framework project in any lawful way and for any lawful purpose we see fit and we are not obligated to disclose the way and purpose to any party unless required by applicable law. Although Fat-Free Framework is free software, to our best knowledge this project does not have any tax-exempt status. The Fat-Free Framework project is neither a registered non-profit corporation nor a registered charity in any country. Your donation may or may not be tax-deductible; please consult this with your tax advisor. We will not publish/disclose your name and e-mail address without your consent, unless required by applicable law. Your donation is non-refundable.
+[![Paypal](ui/images/donate.png)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=MJSQL8N5LPDAY)
+[![Bitcoin](ui/images/bitcoin.png)](https://coinbase.com/checkouts/7986a0da214006256d470f2f8e1a15cf)
 
 **Copyright (c) 2009-2014 F3::Factory/Bong Cosca &lt;bong&#46;cosca&#64;yahoo&#46;com&gt;**
 
