@@ -45,7 +45,7 @@ class Authentification
 	*/
 	public static function createToken($a)
 	{	
-		return \JWT::encode($a, self::$key);
+		return JWT::encode($a, self::$key);
 	}
 
 

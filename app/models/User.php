@@ -15,9 +15,9 @@ class User extends Model
 	* @param string $pass user's password
 	* @return object users informations 
 	*/
-	public function login($mail , $pass)
+	public function login($mail)
 	{
-		return $this->findOne(array('conditions' => array('mail' => $mail, 'password' => $pass )));
+		return $this->findOne(array('conditions' => array('USER_CODE' => $mail)));
 	}
 
 
@@ -62,7 +62,7 @@ class User extends Model
 	*/
 	public function existingMail($mail)
 	{	
-		$c = array('conditions'=> array('mail' => $mail));
+		$c = array('conditions'=> array('USER_CODE' => $mail));
 
 		$nb = $this->count('mail', $c);
 
@@ -162,7 +162,7 @@ class User extends Model
 
 	/**
 	* Searching user from his name
-	* @param $name fullname of the user
+	* @param $name full name of the user
 	* @return array all users found
 	*/
 	public function searchByName($name)

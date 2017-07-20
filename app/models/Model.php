@@ -167,7 +167,7 @@ class Model
 		$req = "SELECT " . $this->addColumns($cond);
 		$req .= " FROM " . $table;
 		$req .= $this->addCondition($cond, $table);
-
+                
 		return $this->exec($req);
 	}
 
@@ -205,7 +205,7 @@ class Model
 
 		return $this->find($cond, $table);
 	}
-
+        
 	/**
 	* Find only one data
 	* @param array $cond  conditions

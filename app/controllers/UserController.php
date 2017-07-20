@@ -31,15 +31,8 @@ class UserController extends Controller
 	*/
 	public function getAll()
 	{
-		parent::getAll();
-		// Unset sensible data from user
-		$this->unsetData(array('token_signup', 'password'));		
-		// Add sports data for each user
-		foreach ($this->data as $key => $value) {
-			$s = $this->User->getAllSport($this->data[$key]->USER_CODE);
-                        
-			$this->setData($s, 'sports', $key);
-		}		
+            parent::getAll();
+            $this->setData($this->data);
 	}
 
 	/**
@@ -72,18 +65,26 @@ class UserController extends Controller
 		$data = $this->dataPost;
 		
 		// Login the user
-		$user = $this->User->login($data->mail, $this->hashPassword($data->password));
+		$user = $this->User->login($data->USER_CODE);
 
 		// // If user find
-		if($user) {
+                print_r($user);
+		if(count($user["response"])>0) {
 			// Add token to user data
-			$user[0]->token = $this->initToken($user);
+//			$user[0]->token = $this->initToken($user);
+            
+                        $user["token"] = $this->initToken($user);
+                        
 			// Render User infos
 			$this->setData($user);
 			$this->unsetData(array('token_signup', 'password'));
 		}else {
 			// Render Error
-			$this->setError(404, 'Mauvais mot de passe ou mauvaise adresse mail');
+                    $user["status"] = FALSE;
+                    $user["error"] = "Incorrect User Code";
+                    $this->setData($user);
+//			$this->setError(404, 'Mauvais mot de passe ou mauvaise adresse mail');
+                        
 		}		
 	}
 
@@ -268,11 +269,11 @@ class UserController extends Controller
 	{
 		// Data need in the token
 		$for_token = array(
-			'id'		     => $user[0]->id,
-			'mail'		     => $user[0]->mail,
-			'firstname'      => $user[0]->firstname, 
-			'lastname'       => $user[0]->lastname,
-			'firstconnect'   => $user[0]->firstconnect,
+			'USER_CODE'		     => $user["response"][0]->USER_CODE,
+			'ROLE_CODE'		     => $user["response"][0]->ROLE_CODE,
+			'USER_NAME'      => $user["response"][0]->USER_NAME, 
+			'USER_ID_CARD_NO'       => $user["response"][0]->USER_ID_CARD_NO,
+			'USER_PHONE'   => $user["response"][0]->USER_PHONE,
 		);
 
 		// Return the token
